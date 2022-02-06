@@ -39,4 +39,13 @@ export const Container = styled.div`
       }
     }
   }
+
+  @media(max-width: 599px) {
+     flex-direction: column-reverse;
+
+     > img {
+       margin: 2rem 0rem 1rem;
+       max-width: 200px;
+     }
+  }
 `;
