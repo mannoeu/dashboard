@@ -99,10 +99,16 @@ function Form() {
   return (
     <S.Container>
       <h4>
-        {!!id && !userToUpdate ? "User not found" : "Add new user"}
+        {!!id && !userToUpdate
+          ? "User not found"
+          : !!userToUpdate
+          ? "Update user data"
+          : "Add new user"}
         <span>
           {!!id && !userToUpdate
             ? "The user you tried to access does not exist or may have already been removed."
+            : !!userToUpdate
+            ? "Update user information by modifying the fields below."
             : "To create a new user, please fill in the fields below."}
         </span>
       </h4>
