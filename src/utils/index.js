@@ -1,5 +1,5 @@
 export const REGEX = {
-  email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+  email: /\S+@\S+\.\S+/,
 };
 
 export const validateField = (str = "", key) => {
