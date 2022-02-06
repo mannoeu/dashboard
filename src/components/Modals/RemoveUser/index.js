@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
+import Button from "components/Button";
+
 import { Creators as ModalActions } from "store/ducks/modal";
 
 import * as S from "./styles";
@@ -15,10 +17,8 @@ function RemoveUser({ name = "Fulano", onConfirm = () => {} }) {
         database? This action cannot be undone.
       </p>
       <S.ActionsContainer>
-        <S.Button onClick={() => dispatch(ModalActions.close())}>No</S.Button>
-        <S.Button danger onClick={onConfirm}>
-          Yes
-        </S.Button>
+        <Button onClick={() => dispatch(ModalActions.close())} text="No" />
+        <Button danger onClick={onConfirm} text="Yes" />
       </S.ActionsContainer>
     </S.Container>
   );

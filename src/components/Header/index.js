@@ -4,10 +4,12 @@ import * as S from "./styles";
 export default function Header() {
   return (
     <S.Header>
-      <h3>
-        Dashboard
-        <span>Welcome, Mr. Luke!</span>
-      </h3>
+      <div>
+        <h3>
+          Dashboard
+          <span>Welcome, Mr. Luke!</span>
+        </h3>
+      </div>
     </S.Header>
   );
 }

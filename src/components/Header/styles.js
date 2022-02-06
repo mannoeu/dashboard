@@ -11,17 +11,22 @@ export const Header = styled.header`
   color: ${({ theme }) => theme.colors.secondary};
   z-index: 1000;
 
-  > h3 {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.2rem;
-    line-height: 1.098rem;
+  > div {
+    max-width: 1600px;
+    margin: 0 auto;
 
-    > span {
-      margin-top: 0.25rem;
-      font-size: 0.75rem;
-      line-height: 1.125rem;
-      color: ${({ theme }) => theme.colors.light};
+    > h3 {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2rem;
+      line-height: 1.098rem;
+
+      > span {
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        line-height: 1.125rem;
+        color: ${({ theme }) => theme.colors.light};
+      }
     }
   }
 `;

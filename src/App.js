@@ -2,7 +2,7 @@ import Routes from "routes";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
-import Modal from "components/Modal";
+import Modal from "templates/Modal";
 
 import { GlobalStyle } from "styles/reset";
 

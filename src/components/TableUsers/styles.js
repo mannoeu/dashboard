@@ -11,7 +11,7 @@ const wave = (props) => keyframes`
 export const TableContainer = styled.article`
   width: 100%;
   height: 100%;
-  overflow-x: auto;
+  overflow: hidden;
   margin-top: 2rem;
   border-radius: 0.5rem;
   border: 0.063rem solid ${({ theme }) => theme.colors.light};
@@ -37,14 +37,17 @@ export const TableContainer = styled.article`
 
 export const Headings = styled.ul`
   width: 100%;
-  min-width: 599px;
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
   list-style: none;
   grid-gap: 0.5rem;
   justify-items: center;
   padding-bottom: 1rem;
   border-bottom: 0.063rem solid ${({ theme }) => theme.colors.light};
+
+  @media (max-width: 599px) {
+    display: none;
+  }
 `;
 
 export const Heading = styled.li`
@@ -63,8 +66,7 @@ export const Heading = styled.li`
 export const Row = styled.ul`
   width: 100%;
   display: grid;
-  min-width: 599px;
-  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
   list-style: none;
   grid-gap: 0.5rem;
   justify-items: center;
@@ -79,6 +81,10 @@ export const Row = styled.ul`
     font-size: 0.875rem;
     line-height: 1.098rem;
 
+    > b {
+      display: none;
+    }
+
     ${({ loading }) =>
       loading &&
       css`
@@ -92,6 +98,43 @@ export const Row = styled.ul`
         background: ${({ theme }) => theme.colors.gray};
         animation: 1s linear 0s infinite alternate ${wave};
       `};
+  }
+
+  @media (max-width: 599px) {
+    grid-template-columns: 1fr;
+    justify-items: flex-start;
+
+    > li {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+
+      > b {
+        margin-right: 0.25rem;
+        display: block;
+      }
+
+      ${({ loading }) =>
+        loading &&
+        css`
+          max-width: 100%;
+        `};
+    }
+  }
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  button + button {
+    margin-left: 0.5rem;
+  }
+
+  @media (max-width: 599px) {
+    width: 100%;
+    justify-content: center;
   }
 `;
 
@@ -110,7 +153,7 @@ export const IconButton = styled.button`
   position: relative;
   transition: all 0.2s linear;
 
-  :after {
+  :before {
     ${({ tooltip }) => tooltip && `content: "${tooltip}";`};
     position: absolute;
     color: ${({ theme }) => theme.colors.white};
@@ -134,7 +177,7 @@ export const IconButton = styled.button`
     z-index: 2000;
   }
 
-  &:hover:after {
+  &:hover:before {
     opacity: 1;
     width: max-content;
     transform: translateY(-28px);
@@ -142,6 +185,19 @@ export const IconButton = styled.button`
 
   &:hover {
     filter: brightness(90%);
+  }
+`;
+
+export const Empty = styled.div`
+  margin: 10rem auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  > p {
+    font-size: 0.875rem;
+    line-height: 1.098rem;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 

@@ -18,6 +18,8 @@ export const Types = {
   GET_USERS_FAILURE: "get-users-failure",
   SORT: "sort-users",
   REMOVE: "remove-user",
+  ADD: "add-user",
+  UPDATE: "UPDATE-user",
 };
 
 /**
@@ -52,6 +54,10 @@ export function users(state = INITIAL_STATE, action) {
         ...state,
         ...applySortedConfig(state?.data, state?.sort_by_username),
       };
+    case Types.ADD:
+      return createNewUser(state, action.payload.data);
+    case Types.UPDATE:
+      return updateUser(state, action.payload.data);
     default:
       return state;
   }
@@ -65,29 +71,65 @@ const applySortedConfig = (
   actual_sort = "asc",
   maintain_sort = false
 ) => {
-  var GET_SORT = {
-    asc: (arr) =>
-      arr?.sort((a, b) =>
-        a.username > b.username ? 1 : b.username > a.username ? -1 : 0
-      ),
-    desc: (arr) =>
-      arr?.sort((a, b) =>
-        a.username < b.username ? 1 : b.username < a.username ? -1 : 0
-      ),
+  const onSort = (arr, type) => {
+    return arr.sort((a, b) =>
+      type === "asc"
+        ? a.username.localeCompare(b.username)
+        : b.username.localeCompare(a.username)
+    );
   };
 
-  var arr = maintain_sort
-    ? GET_SORT[actual_sort](data)
+  let arr = maintain_sort
+    ? onSort(data, actual_sort)
     : actual_sort === "asc"
-    ? GET_SORT.desc(data)
-    : GET_SORT.asc(data);
-  var sort_value = maintain_sort
+    ? onSort(data, "desc")
+    : onSort(data, "asc");
+  let sort_value = maintain_sort
     ? actual_sort
     : actual_sort === "asc"
     ? "desc"
     : "asc";
 
   return { data: arr, sort_by_username: sort_value };
+};
+
+const createNewUser = (state, newUser) => {
+  let arr = state?.data;
+  let new_user_id = !arr?.length
+    ? 1
+    : Math.max(...arr.map((item) => item.id)) + 1;
+
+  let new_user = {
+    id: new_user_id,
+    ...newUser,
+    username: newUser.name.toLowerCase().split(" ").join("_"),
+    address: {
+      city: "-",
+      ...newUser?.address,
+    },
+  };
+
+  arr.push(new_user);
+
+  return {
+    ...state,
+    ...applySortedConfig(arr, state?.sort_by_username, true),
+  };
+};
+
+const updateUser = (state, updatedUser) => {
+  let arr = state?.data;
+  let index = arr.findIndex((user) => user.id === updatedUser.id);
+  arr[index] = {
+    ...arr[index],
+    name: updatedUser?.name,
+    email: updatedUser?.email,
+  };
+
+  return {
+    ...state,
+    ...applySortedConfig(arr, state?.sort_by_username, true),
+  };
 };
 
 /**
@@ -113,5 +155,13 @@ export const Creators = {
   remove: (id) => ({
     type: Types.REMOVE,
     payload: { id },
+  }),
+  create: (data) => ({
+    type: Types.ADD,
+    payload: { data },
+  }),
+  update: (data) => ({
+    type: Types.UPDATE,
+    payload: { data },
   }),
 };

@@ -9,6 +9,9 @@ export const Wrapper = styled.div`
   padding: 3.75rem 1.25rem;
 
   .page-container {
+    max-width: 1600px;
+    width: 100%;
     padding-top: 3.125rem;
+    margin: 0 auto;
   }
 `;
