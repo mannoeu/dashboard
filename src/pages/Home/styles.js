@@ -25,7 +25,6 @@ export const Container = styled.div`
   > div.order-mobile {
     display: none;
 
-    cursor: pointer;
     margin-top: 2rem;
 
     padding: 0.8rem 0.5rem;
