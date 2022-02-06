@@ -41,7 +41,7 @@ function Home() {
       </S.ButtonAction>
       <div className="order-mobile">
         <p>
-          Sorted by last name
+          Sorted by username
           <i>
             {sort_by_username === "asc"
               ? "Alphabetical order"
